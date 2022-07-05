@@ -1,5 +1,16 @@
 #!/usr/bin/env python3
 
+"""
+Requirements: Create /people and /planets endpoints.
+Contacting swapi returns a json object with 4 keys: count, next, previous, and results. We shouldn't need any besides results, since previous and next are not required if all are returned at once.
+
+/people endpoint
+Should contact swapi and get all people, the swapi doesn't return all at once. It has a key "next" with the value of the next url we want to contact. Allow optional arg "sortBy", which can be set to name, height, or mass, and return the json object sorted according to the argument.
+
+/planets endpoint
+Should contact the swapi and return all planets, and should have the resident names rather than URLs to the resident info.
+"""
+
 from flask import Flask
 import requests
 import json
@@ -41,12 +52,13 @@ def show_planets():
 
     return updated_planets
 
+
 @app.route('/people')
 def show_people():
     # The default response from swapi only returns 10 people, and has the following keys: count, next, previous, results. Since we are getting all 82 in one response, we only need the results key.
     all_people = {"results": []}
     response = requests.get("https://swapi.dev/api/people")
-    while response.json()["next"] != None:
+    while response.json()["next"] is not None:
         next_url = response.json()["next"]
         # Re-define response so that by time we're back to the if statement we have a new val for response.json()["next"].
         response = requests.get(next_url)
@@ -60,10 +72,6 @@ def wrong_path():
     return "You're in the wrong path"
 
 
-# main driver function
 if __name__ == '__main__':
-
-    # run() method of Flask class runs the application
-    # on the local development server.
     app.run()
 
