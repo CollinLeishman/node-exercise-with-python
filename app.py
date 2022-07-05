@@ -19,13 +19,13 @@ names rather than URLs to the resident info.
 
 from flask import Flask, request
 import requests
-# For some reason jsonify still dumps an ugly response.
+# For some reason jsonify still puts an ugly response out.
 from json import dumps
 
 app = Flask(__name__)
 
 
-@app.route('/planets')
+@app.route('/planets', methods=['GET'])
 def show_planets():
     """
     First: Want to get all of the planets into one dictionary.
@@ -67,7 +67,7 @@ def show_planets():
     return dumps(updated_planets, indent=3)
 
 
-@app.route('/people')
+@app.route('/people', methods=['GET'])
 def show_people():
     """
     First: Get all people in a list, make that list the value of a dictionary.
@@ -99,7 +99,7 @@ def show_people():
         return dumps(all_people, indent=3)
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def show_usage():
     return "Usage:\ncurl http://127.0.0.1:5000/people?sortBy=mass\ncurl http://127.0.0.1:5000/planets\n"
 
