@@ -8,9 +8,8 @@ not required if all are returned at once.
 
 /people endpoint
 Should contact swapi and get all people, the swapi doesn't return all at once.
-It has a key "next" with the value of the next url we want to contact. Allow
-optional arg "sortBy", which can accept parameters name, height, or mass, and
-return the json object sorted according to the parameter provided.
+Allow optional arg "sortBy", which can accept parameters name, height, or
+mass, and return the json object sorted according to the parameter provided.
 
 /planets endpoint
 Should contact the swapi and return all planets, and should have the resident
